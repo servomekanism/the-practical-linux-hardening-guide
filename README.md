@@ -3,8 +3,9 @@
 <br>
 
 <p align="center">
-    <img src="https://github.com/trimstray/the-practical-linux-hardening-guide/blob/master/doc/img/main_preview.jpg"
-        alt="Master">
+  <a href="https://github.com/trimstray/the-practical-linux-hardening-guide">
+    <img src="https://github.com/trimstray/the-practical-linux-hardening-guide/blob/master/static/img/main_preview.jpg" alt="Master">
+  </a>
 </p>
 
 <br>
@@ -14,619 +15,281 @@
 <br>
 
 <p align="center">
-  <a href="https://github.com/trimstray/the-practical-linux-hardening-guide/tree/master">
-    <img src="https://img.shields.io/badge/Branch-master-green.svg?longCache=true"
-        alt="Branch">
+  <a href="https://github.com/trimstray/the-practical-linux-hardening-guide/pulls">
+    <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?longCache=true" alt="Pull Requests">
   </a>
   <a href="http://www.gnu.org/licenses/">
-    <img src="https://img.shields.io/badge/License-GNU-blue.svg?longCache=true"
-        alt="License">
+    <img src="https://img.shields.io/badge/License-GNU-blue.svg?longCache=true" alt="License">
   </a>
 </p>
 
 <div align="center">
   <sub>Created by
   <a href="https://twitter.com/trimstray">trimstray</a> and
-  <a href="https://github.com/trimstray/the-practical-linux-hardening-guide/graphs/contributors">
-    contributors
-  </a>
+  <a href="https://github.com/trimstray/the-practical-linux-hardening-guide/graphs/contributors">contributors</a>
 </div>
 
 <br>
 
-<p align="center">All suggestions and pull requests are welcome!</p>
-
-<br>
-
-:collision: Work in progress, just a moment... First, I update a [Table Of Content](#table-of-content) and chapters.
-
-If you want to support another repository containing **hardening** recipes, please see: [linux-hardening-checklist](https://github.com/trimstray/linux-hardening-checklist) - it's a simple checklist with the most important hardening rules.
-
 ****
 
-## Table Of Content
+# Table of Contents
 
-- **[Pre install tasks](#pre-install-tasks)**
-  * **[Physical system security](#physical-system-security)**
-    + [Introduction](#information_source-introduction)
-    + [Secure rooms](#eight_pointed_black_star-secure-rooms)
-    + [Monitoring](#eight_pointed_black_star-monitoring)
-    + [Air conditioning](#eight_pointed_black_star-air-conditioning)
-    + [Fire protection](#eight_pointed_black_star-fire-protection)
-    + [Locked racks](#eight_pointed_black_star-locked-racks)
-    + [Console security](#eight_pointed_black_star-console-security)
-    + [BIOS protection](#eight_pointed_black_star-bios-protection)
-    + [Summary checklist](#ballot_box_with_check-summary-checklist)
-  * **[Hard disk encryption](#hard-disk-encryption)**
-    + [Introduction](#information_source-introduction-1)
-    + [Encrypt root filesystem](#eight_pointed_black_star-encrypt-root-filesystem)
-    + [Encrypt /boot partition](#eight_pointed_black_star-encrypt-boot-partition)
-    + [Swap partition](#eight_pointed_black_star-swap-partition)
-    + [Summary checklist](#ballot_box_with_check-summary-checklist-1)
-- **[Post install tasks](#post-install-tasks)**
-  * **[Bootloader configuration (grub)](#bootloader-configuration-grub)**
-    + [Introduction](#information_source-introduction-2)
-    + [Protect bootloader with password](#information_source-protect-bootloader-with-password)
-    + [Protect bootloader config files](#information_source-protect-bootloader-config-files)
-    + [Summary checklist](#ballot_box_with_check-summary-checklist-2)
-  * **[Disk partitions](#disk-partitions)**
-    + [Introduction](#information_source-introduction-3)
-    + [Separate disk partitions](#eight_pointed_black_star-separate-disk-partitions)
-    + [Mount options: nodev, noexec and nosuid](#eight_pointed_black_star-mount-options-nodev-noexec-and-nosuid)
-    + [Secure /boot directory](#eight_pointed_black_star-secure-boot-directory)
-    + [Secure /tmp and /var/tmp](#eight_pointed_black_star-secure-tmp-and-vartmp)
-    + [Secure /dev/shm](#eight_pointed_black_star-secure-devshm)
-    + [Secure /proc filesystem](#eight_pointed_black_star-secure-proc-filesystem)
-    + [Swap partition](#eight_pointed_black_star-swap-partition-1)
-    + [Disk quotas](#eight_pointed_black_star-disk-quotas)
-    + [Summary checklist](#ballot_box_with_check-summary-checklist-3)
-  * **[Keep system updated](#keep-system-updated)**
-  * [Package management](#package-management)
-    + [Automatic security updates](#automatic-security-updates)
-    + [Remove packages with known issues](#remove-packages-with-known-issues)
-  * [Netfilter ruleset](#netfilter-ruleset)
-  * [TCP wrapper](#tcp-wrapper)
-  * [Users and groups](#users-and-groups)
-    + [Limit su access](#limit-su-access)
-    + [Disable root account](#disable-root-account)
-    + [Logins to system console](#logins-to-system-console)
-    + [Disable shell accounts](#disable-shell-accounts)
-    + [Strong password policy](#strong-password-policy)
-    + [Password aging](#password-aging)
-    + [Previous passwords](#previous-passwords)
-    + [Login failures](#login-failures)
-    + [Protect single user mode](#protect-single-user-mode)
-  * [System path permissions](#system-path-permissions)
-    + [World writable files](#world-writable-files)
-  * [PAM module](#pam-module)
-  * [Limits](#limits)
-  * [Shadow passwords](#shadow-passwords)
-  * [Linux kernel hardening](#linux-kernel-hardening)
-    + [Kernel parameters](#kernel-parameters)
-      + [Network security](#improve-network-security)
-      + [System security](#improve-system-security)
-  * [Remove unused modules](#remove-unused-modules)
-  * [Secure shared memory](#secure-shared-memory)
-  * [IRQ balance](#irq-balance)
-  * [Disable compilers](#disable-compilers)
-  * [Email notifications](#email-notifications)
-    + [Rebooting the system](#rebooting-the-system)
-  * [Backups](#backups)
-  * [External devices](#external-devices)
-    + [Disable USB usage](#disable-usb-usage)
-- **[Tools](#tools)**
-  * [Logging and Auditing](#logging-and-auditing)
-    + [Auditd](#auditd)
-    + [Tiger](#tiger)
-    + [Aide](#aide)
-    + [Logwatch](#logwatch)
-  * [Other](#other)
-    + [Fail2ban](#fail2ban)
-    + [PSAD](#psad)
-    + [SELinux](#selinux)
-    + [Entropy daemon](#entropy-daemon)
-    + [Centralized authentication service](#centralized-authentication-service)
-  * [Testing tools](#testing-tools)
-    + [Lynis](#lynis)
-    + [Chrootkit](#chrootkit)
-- **[Services](#services)**
-  * [Disable all unnecessary services](#disable-all-unnecessary-services)
-    + [Common unix print system](#eight_pointed_black_star-common-unix-print-system)
-    +  [Summary Checklits](#ballot_box_with_check-summary-checklist-4)
-  * [System services](#system-services)
-    + [OpenSSH](#openssh)
-    + [NTP](#ntp)
-    + [Cron](#cron)
-    + [Anacron](#anacron)
-    + [GnuPG 2](#gnupg2)
-      + [Unattended key generation](#unattended-key-generation)
-  * [DNS services](#dns-services)
-    + [Bind9](#bind9)
-  * [Mail services](#mail-services)
-    + [Postfix](#postfix)
-  * [Web services](#web-services)
-    + [Nginx](#nginx)
-    + [Apache](#apache)
-    + [Securing and tuning HTTP/HTTPS protocols](#securing-and-tuning-http-https-protocols)
-      - [Use HTTPS](#use-https)
-      - [Enable HTTP2](#enable-http2)
-      - [Separate domains](#separate-domains)
-      - [Redirect all unencrypted traffic to HTTPS](#redirect-all-unencrypted-traffic-to-https)
-      - [Enable HTTP Strict Transport Security](#enable-http-strict-transport-security)
-      - [Security related headers](#security-related-headers)
-  * [Databases](#databases)
-    + [PostgreSQL](#postgresql)
-    + [MySQL](#mysql)
-    + [Redis](#redis)
-  * [Queues](#queues)
-    + [AMQP](#amqp)
-- **[Deployment](#deployment)**
-- **[Testing configuration](#testing-configuration)**
-- **[External resources](#external-resources)**
+- **[Introduction](#introduction)**
+  - [General Disclaimer](#general-disclaimer)
+  - [The Importance of Linux Hardening](#the-importance-of-linux-hardening)
+  - [How to Harden Linux](#how-to-harden-linux)
+  - [Which Distribution Should be Used](#which-distribution-should-be-used)
+  - [How to Read This Guide](#how-to-read-this-guide)
+  - [Okay. Let's start, 3, 2, 1... STOP!](#okay-lets-start-3-2-1-stop)
+- **[Policy Compliance](#policy-compliance)**
+  - [Center of Internet Security (CIS)](#center-of-internet-security-cis)
+  - [Security Technical Implementation Guide (STIG)](#security-technical-implementation-guide-stig)
+  - [National Institute of Standards and Technology (NIST)](#national-institute-of-standards-and-technology-nist)
+  - [Payment Card Industry Data Security Standard (PCI-DSS)](#payment-card-industry-data-security-standard-pci-dss)
+- **[Security Content Automation Protocol (SCAP)](#security-content-automation-protocol-scap)**
+  - [SCAP Security Guide](#scap-security-guide)
+  - [OpenSCAP Base](#openscap-base)
+  - [SCAP Workbench](#scap-workbench)
+- **[DevSec Hardening Framework](#devsec-hardening-framework)**
+- **[Contributing & Support](#contributing--support)**
+- **[License](#license)**
 
-## Pre install tasks
+## Introduction
 
-### Physical system security
+### General Disclaimer
 
-#### :information_source: Introduction
+**[The Practical Linux Hardening Guide](https://trimstray.github.io/the-practical-linux-hardening-guide/)** provides a high-level overview of hardening GNU/Linux systems. It is not an official standard or handbook but it _touches_ and _uses_ industry standards.
 
-The primary goal of physical security is to stop physical attacks whenever possible, and, failing that, to slow them down so that hopefully someone will notice the presence of the attacker in a restricted area, preventing any tampering with the system. [Weak physical security often invalidates any other security measure](https://www.lynda.com/Linux-tutorials/Physical-security-concepts/728406/750240-4.html), and thus should be prioritized. 
+This guide also provides you with _practical step-by-step instructions_ for building your own hardened systems and services. One of the main goals is to create a single document covering _internal_ and _external_ threats.
 
-#### :eight_pointed_black_star: Secure rooms
+A few rules for this project:
 
-For secure rooms make sure that the walls go beyond the false ceiling, and below the raised floor ([source](https://books.google.pt/books?id=XD68NYRPD9oC&pg=PA158&lpg=PA158&dq=physical+security+computer+systems+false+ceiling&source=bl&ots=1wzz6IsBfw&sig=ACfU3U0IPb8NrSiQaQoZFfnu4eMbRgYngQ&hl=en&sa=X&redir_esc=y#v=onepage&q=physical%20security%20computer%20systems%20false%20ceiling&f=false)), large vents should also be [covered with bars](https://books.google.pt/books?id=6yTGIaHLNsAC&pg=PA160&lpg=PA160&dq=covering+vents+with+bars+physical+security&source=bl&ots=2k-196Kwwk&sig=ACfU3U0KsfGhDk06A6qUHIXt88xEi8FZ6w&hl=en&sa=X&redir_esc=y#v=onepage&q=covering%20vents%20with%20bars%20physical%20security&f=false) if possible.
+- useful, simple, and not tiring
+- include a lot of security tips from the C2S/CIS
+- contains also non-related rules with C2S/CIS
+- based on a minimal [RHEL7](https://www.redhat.com/en/technologies/linux-platforms/enterprise-linux) and [CentOS 7](https://www.centos.org/) installations
+- it's not exhaustive about Linux hardening
+- some hardening rules/descriptions can be done better
+- you can think of it as a checklist
 
-#### :eight_pointed_black_star: Monitoring
+The Practical Linux Hardening Guide use following [OpenSCAP](https://www.open-scap.org/) configurations:
 
-Monitoring the room with CCTV or wired cameras is a great way to provide security for your server room or data center. As well as providing video footage of events which may occur - door open events, motion detection or any other sensor event, they also act as a visual deterrent to would be criminals.
+- [U.S. Government Commercial Cloud Services (C2S) baseline inspired by CIS v2.1.1](https://static.open-scap.org/ssg-guides/ssg-rhel7-guide-C2S.html)
 
-Solution for remotely monitoring the temperature ensue proactively notify you when the temperature goes above or below pre-defined thresholds, potentially allowing you to take corrective measures before encountering costly downtime.
+  > C2S for Red Hat Enterprise Linux 7 v0.1.43.
 
-[Source](https://www.enviromon.net/monitoring-physical-security-server-room/)
+- [Red Hat Enterprise Linux 7 Security Technical Implementation Guide (STIG)](https://www.stigviewer.com/stig/red_hat_enterprise_linux_7/)
 
-#### :eight_pointed_black_star: Air conditioning
+  > The requirements are derived from the (NIST) 800-53 and related documents.
 
-Computer equipment generates heat, and is sensitive to heat, humidity, and dust, but also the need for very high resilience and failover requirements. Maintaining a stable temperature and humidity within tight tolerances is critical to IT system reliability.
+Please also remember:
 
-Air conditioning designs for most computer or server rooms will vary depending on various design considerations, but they are generally one of two types: "up-flow" and "down-flow" configurations.
+  > This guide contains my comments that may differ from certain industry principles. If you are not sure what to do please see **[Policy Compliance](#policy-compliance)**.
 
-[Source](https://www.enviromon.net/how-to-monitor-server-room-temperature/)
+### The Importance of Hardening Linux
 
-#### :eight_pointed_black_star: Fire protection
+Simply speaking, hardening is the process of making a system more secure. Out of the box, Linux servers don’t come "hardened" (e.g. with the attack surface minimized). It’s up to you to prepare for each eventuality and set up systems to notify you of any suspicious activity in the future.
 
-The fire protection system's main goal should be to detect and alert of fire in the early stages, then bring fire under control without disrupting the flow of business and without threatening the personnel in the facility. Server room fire suppression technology has been around for as long as there have been server rooms.
+The process of hardening servers involves both IT ops. and security teams and require changes to the default configuration according to industry benchmarks.
 
-There are a series of things you need in a fire suppression system:
+Also for me, hardening is the fine art of doing the right things, even if they don't always look to have a big impact. It's always a balance between ease of use and protection.
 
-- an emergency power off function
-- gas-based suppression system
-- fire detection sensors
+You need to harden your system to protect your assets as much as possible. Why is it important? Please read a great, short article that [explains the hardening process](https://linux-audit.com/linux-server-hardening-most-important-steps-to-secure-systems/) step by step by [Michael Boelen](https://michaelboelen.com/).
 
-[Source](https://www.controlfiresystems.com/news/what-type-of-suppression-system-works-best-for-computer-room-fires/)
+### How to Harden Linux
 
-#### :eight_pointed_black_star: Locked racks
+In my opinion, you should drop all non-industry policies, articles, manuals, and others especially on production environments and standalone home servers. These lists exist to give a false sense of security and aren't based on authority standards.
 
-All systems should be securely fastened to something with a cable system, or locked in an equipment cage if possible. Case locks should be used when possible to slow attackers down.
+There are a lot of great GNU/Linux hardening policies available to provide safer operating systems compatible with security protocols. For me, CIS and the STIGs compliances are about the best prescriptive guides - but of course you can choose a different one (e.g. PCI-DSS, DISA).
 
-[Source](https://securitytoday.com/blogs/reaction/2018/02/Securing-the-Physical-Safety-of-Data-with-Rack-Level-Access-Control.aspx)
+  > Most of all you should use [Security Benchmarks/Policies](#policy-compliance) which describe consensus best practices for the secure configuration of target systems.
 
-#### :eight_pointed_black_star: Console security
+Configuring your systems in compliance eliminates the most common vulnerabilities. For example, CIS has been shown to eliminate 80-95% of known vulnerabilities.
 
-With physical access to most machines you can simply reboot the system and ask it nicely to launch into single user mode, or tell it to use `/bin/sh` for init.
+On the other hand, these standards are complicated checklists (often for newbies, difficult to implement). In my opinion, ideally, real world implementation is automated via something like OpenSCAP.
 
-[Source](https://www.tldp.org/HOWTO/Security-HOWTO/physical-security.html)
+  > You should use a rational approach because more is not better. Each environment is different, so even though security rules should all work in theory, sometimes things will not work as expected.
 
-#### :eight_pointed_black_star: BIOS protection
+Hardening is not a simple process. Here are general rules following common best practices:
 
-In the program itself to edit the BIOS settings:
+- never use root account for anything that does not require it
+- only `sudo` individual commands
+- never set a server to run as root (except for initialization time) and ensure that it exits all unnecessary privileges before accepting requests
+- secure your firewall the best you can and forbid all unnecessary access
+- do not install unnecessary or unstable software
 
-- only boot from specific drive
-- disable the unused controllers
-- disable the booting from external media devices (USB/CD/DVD)
-- enable BIOS password
+### Which Distribution Should be Used
 
-You need to protect the BIOS of the host with a password so the end-user won’t be able to change and override the security settings in the BIOS.
+This guide is tested on **Red Hat Enterprise Linux 7** and **CentOS 7** distributions because these are:
 
-Main reasons for password protecting the BIOS:
+- free (CentOS) and open source
+- enterprise-class
+- stable and reliable
+- with great community support
+- built on coherent snapshots of old packages
 
-- preventing changes to BIOS settings
-- preventing system booting
+Both distributions allow the use of **[certified tools](#scap-security-guide)** which can parse and evaluate each component of the SCAP standard.
 
-Because the methods for setting a BIOS password vary between computer manufacturers, consult the computer's manual for specific instructions.
+If you use another distribution - no problem, this guide is also for you.
 
-  > For this reason, it is good practice to lock the computer case if possible. However, consult the manual for the computer or motherboard before attempting to disconnect the CMOS battery.
-  
-[Source](https://csrc.nist.gov/csrc/media/publications/sp/800-147b/final/documents/draft-sp800-147b_july2012.pdf)
+### How to Read This Guide
 
-#### :ballot_box_with_check: Summary checklist
+Here is the structure of the chapters:
 
-| <b>Item</b> | <b>True</b> | <b>False</b> |
-| :---        | :---:       | :---:        |
-| Physically secure machine (also outside of a server room) | :black_square_button: | :black_square_button: |
-| Monitoring server rooms with CCTV or wired cameras | :black_square_button: | :black_square_button: |
-| Remotely monitoring the temperature | :black_square_button: | :black_square_button: |
-| Efficient air conditioning solution | :black_square_button: | :black_square_button: |
-| Efficient fire protection system | :black_square_button: | :black_square_button: |
-| Locked cage (server case) | :black_square_button: | :black_square_button: |
-| Physical access to server console | :black_square_button: | :black_square_button: |
-| Password on the BIOS | :black_square_button: | :black_square_button: |
-| Disable external media devices | :black_square_button: | :black_square_button: |
-| Periodic physical inspections | :black_square_button: | :black_square_button: |
-
-### Hard disk encryption
-
-#### :information_source: Introduction
-
-Disk encryption is focused on securing physical access, while relying on other parts of the system to provide things like network security and user-based access control.
-
-Most of the Linux distributions will allow you to encrypt your disks before installation.
-
-If you use an alternative installation method (e.g. from `debootstrap`) you can create an [encrypted disk manually](#disk-partitions).
-
-Before this you should to answer the following questions:
-
-- What part of filesystem do you want to encrypt?
-  * only user data
-  * user data and system data
-- How should `swap`, `/tmp` and other be taken care of?
-  * disable or mount as ramdisk
-  * encrypt (separately of as part of full)
-- How should encrypted parts of the disk be unlocked?
-  * passphrase
-  * key file
-- When should encrypted parts of the disk be unlocked?
-  * before boot process
-  * during boot process
-  * mixed above or manually
-  
-[Source](https://uchicago.service-now.com/it?id=kb_article&kb=KB06000398)
-
-#### :eight_pointed_black_star: Encrypt root filesystem
-
-Unlocked during boot, using passphrases or USB stick with keyfiles.
-
-#### :eight_pointed_black_star: Encrypt /boot partition
-
-- encrypting the whole disk without `/boot` partition but keeping it on a flash drive you carry at all times
-- using a checksum value of the boot sector
-- boot partition to detect it and change you passphrase
-
-This may not completely get rid of the attack vector described in this post as there is still part of the bootloader that isn't encrypted, but at least the grub stage2 and the kernel/ramdisk are encrypted and should make it much harder to attack.
-
-In addition, the `/boot` partition may be a weak point if you use encryption methods for the rest of the disk.
-
-Historically it has been necessary to leave `/boot` unencrypted because bootloaders didn't support decrypting block devices. However, there are some dangers to leaving the bootloader and ramdisks unencrypted.
-
-Before this you should to answer the following questions:
-
-- Where your `/boot` partition is stored?
-  * the same place where stored `/`
-  * separately partition
-  * external flash drive
-
-The following recipe should be made after installing the system (however, these steps are included in this section to avoid mixing issues).
-
-[Source](https://security.stackexchange.com/questions/166075/encrypting-the-boot-partition-in-a-linux-system-can-protect-from-an-evil-maid-a)
-
-###### Create copy of your /boot
-
-```bash
-mkdir /mnt/boot
-mount --bind / /mnt/boot
-rsync -aAXv /boot/ /mnt/boot/
-umount /mnt/boot
+```
+ Chapter - e.g. Core Layer
+    |
+    |-- Subsection - e.g. Maintaining Software
+    |       \
+    |        |-- Rationale
+    |        |-- Solution (+ policies)
+    |        |-- Comments
+    |        |-- Useful resources
+    |
+    |-- Subsection - e.g. Accounts and Access
+    |       \
+    |        |-- Rationale
+    |        |-- Solution (+ policies)
+    |        |-- Comments
+    |        |-- Useful resources
 ```
 
-###### Removed old /boot partition
+Levels of understanding:
+
+- _Chapter_ and _subsection_ offers a general overview
+- _Rationale_ tells you the reasoning behind the changes
+- _Solution_ and _policies_ are always compliant with the standard and on this basis, make changes
+- _Comments_ helps you figure out what you can change or add to the _solution_
+- _Useful resources_ provide deeper understanding
+
+### Okay. Let's start, 3, 2, 1... STOP!
+
+Making major changes to your systems can be risky.
+
+The most important rule of system hardening that reasonable admins follow is:
+
+  > **`A production environment is the real instance of the app so make your changes on the dev/test!`**
+
+The second most important rule is:
+
+  > **`Don’t do anything that will affect the availability of the service or your system.`**
+
+The third rule is:
+
+  > **`Make backups of the entire virtual machine and important components.`**
+
+And the last rule is:
+
+  > **`Think about what you actually do with your server.`**
+
+## Policy Compliance
+
+### Center of Internet Security (CIS)
+
+The Center of Internet Security (CIS) is a nonprofit organization focused on improving public and private sector cybersecurity readiness and response.
+
+Please see **[CIS Benchmarks](https://www.cisecurity.org/cis-benchmarks/)**.
+
+### Security Technical Implementation Guide (STIG)
+
+A Security Technical Implementation Guide (STIG) is a cybersecurity methodology for standardizing security protocols within networks, servers, computers, and logical designs to enhance overall security.
+
+Please see **[Stigviewer](https://www.stigviewer.com/stigs)** to explore all stigs.
+
+### National Institute of Standards and Technology (NIST)
+
+The National Institute of Standards and Technology (NIST) is a physical sciences laboratory and a non-regulatory agency of the United States Department of Commerce.
+
+Please see **[National Checklist Program (NCP)](https://nvd.nist.gov/ncp/repository)**.
+
+### Payment Card Industry Data Security Standard (PCI-DSS)
+
+Payment Card Industry Data Security Standard (PCI-DSS) compliance is a requirement for any business that stores, processes, or transmits cardholder data.
+
+In accordance with PCI-DSS requirements, establish a formal policy and supporting procedures for developing configuration standards for system components that are consistent with industry-accepted hardening standards like:
+
+- Center of Internet Security (CIS)
+- International Organization for Standardization (ISO)
+- SysAdmin, Audit, Network, and Security (SANS) Institute
+- National Institute of Standards and Technology (NIST)
+
+## Security Content Automation Protocol (SCAP)
+
+Security Content Automation Protocol (SCAP) provides a mechanism to check configurations, vulnerability management and evaluate policy compliance for a variety of systems.
+
+One of the most popular implementations of SCAP is OpenSCAP and it is very helpful for vulnerability assessment and as a hardening helper. OpenSCAP can easily handle the SCAP standards and generate neat, HTML-based reports.
+
+Please see **[SCAP Security Policies](https://www.open-scap.org/security-policies/)**, **[OpenSCAP User Manual](https://static.open-scap.org/openscap-1.2/oscap_user_manual.html)**, and **[OpenSCAP Static](https://static.open-scap.org/)**.
+
+### SCAP Security Guide
+
+The auditing system settings with SCAP Security Guide project contains guidance for settings for Red Hat/CentOS and it's validated by NIST.
+
+You should inspect the security content of your system with `oscap info` module:
 
 ```bash
-umount /boot
-sed -i -e '/\/boot/d' /etc/fstab
+# For RHEL:
+oscap info /usr/share/xml/scap/ssg/content/ssg-rhel7-ds.xml
+
+# For CentOS:
+oscap info /usr/share/xml/scap/ssg/content/ssg-centos7-ds.xml
 ```
 
-###### Regenerate grub configuration
+### OpenSCAP Base
+
+The OpenSCAP scanner will only provide meaningful results if the content you want it to process is correct and up to date. The `oscap` tool scans your system, validates security compliance content, and generates reports and guides based on these scans.
+
+Official [OpenSCAP Base](https://www.open-scap.org/tools/openscap-base/) documentation says:
+
+  > _The command-line tool, called `oscap`, offers a multi-purpose tool designed to format content into documents or scan the system based on this content. Whether you want to evaluate DISA STIGs, NIST‘s USGCB, or Red Hat’s Security Response Team’s content, all are supported by OpenSCAP._
+
+Before use, please read **[Using OSCAP](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/security_guide/sect-using_oscap)** documentation.
 
 ```bash
-# Debian like distributions
-grub-mkconfig > /boot/grub/grub.cfg
+# Installation:
+yum install openscap-scanner
 
-# RedHat like distributions
-grub2-mkconfig > /boot/grub2/grub.cfg
+# Make a RHEL7 machine e.g. PCI-DSS compliant:
+oscap xccdf eval --report report.html --profile xccdf_org.ssgproject.content_profile_pci-dss /usr/share/xml/scap/ssg/content/ssg-rhel7-ds.xml
+
+# Make a CentOS machine e.g. PCI-DSS compliant:
+oscap xccdf eval --report report.html --profile xccdf_org.ssgproject.content_profile_pci-dss /usr/share/xml/scap/ssg/content/ssg-centos7-ds.xml
 ```
 
-###### Enable `GRUB_ENABLE_CRYPTODISK` param
+### SCAP Workbench
+
+SCAP Workbench is a utility that offers an easy way to perform common `oscap` tasks on local or remote systems.
+
+Before use, please read **[Using SCAP Workbench](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/security_guide/sect-using_scap_workbench)** documentation.
 
 ```bash
-echo GRUB_ENABLE_CRYPTODISK=y >> /etc/default/grub
+# Installation:
+yum install scap-security-guide scap-workbench
 ```
 
-###### Reinstall grub
+## DevSec Hardening Framework
 
-```bash
-# Debian like distributions
-grub-install /dev/sda
+  > _Security + DevOps: Automatic Server Hardening._
 
-# RedHat like distributions
-grub2-install /dev/sda
-```
+This project covers some of the things in this guide which can be automated (e.g. setting of grub password or enforcing the permissions of the common directories). Its a good start if you want to make changes and see how it works from the level of automation tools.
 
-  > More details can be found here (Bootloader configuration (grub) section):
-  > - [Lock the boot directory](#eight_pointed_black_star-lock-the-boot-directory)
+Project: **[DevSec Hardening Framework](https://dev-sec.io)** and :octocat: GitHub repository: **[dev-sec](https://github.com/dev-sec/)**.
 
-#### :eight_pointed_black_star: Swap partition
+Thanks [@artem-sidorenko](https://github.com/artem-sidorenko)!
 
-- swap area is not required to survive a reboot, therefore a new random encryption key can be chosen each time the swap area is activated
-- get the key from `/dev/urandom` because `/dev/random` maybe stalling your boot sequence
+## Contributing & Support
 
-#### :ballot_box_with_check: Summary checklist
+If you find something which doesn't make sense, or something doesn't seem right, please make a pull request and please add valid and well-reasoned explanations about your changes or comments.
 
-| <b>Item</b> | <b>True</b> | <b>False</b> |
-| :---        | :---:       | :---:        |
-| Encrypting the whole disk | :black_square_button: | :black_square_button: |
-| Usage passphrase or key file to disk unlocked | :black_square_button: | :black_square_button: |
-| Choosing a strong passphrase | :black_square_button: | :black_square_button: |
-| Encrypting the `/boot` partition | :black_square_button: | :black_square_button: |
-| Securing swap partition with `/dev/urandom` | :black_square_button: | :black_square_button: |
-| `swap` or `tmp` using an automatically generated per-session throwaway key | :black_square_button: | :black_square_button: |
+Before adding a pull request, please see the **[contributing guidelines](CONTRIBUTING.md)**.
 
-## Post install tasks
+If this project is useful and important for you or if you really like _The Practical Linux Hardening Guide_, you can bring **positive energy** by giving some **good words** or **supporting this project**. Thank you!
 
-### Bootloader configuration (grub)
+## License
 
-#### :information_source: Introduction
+For license information, please see [LICENSE](https://github.com/trimstray/the-practical-linux-hardening-guide/blob/master/LICENSE.md).
 
-Protection for the boot loader can prevent unauthorized users who have physical access to systems, e.g. attaining root privileges through single user mode.
+---
 
-Basically when you want to prohibit unauthorized reconfiguring of your system, otherwise anybody could load anything on it.
-
-#### :eight_pointed_black_star: Protect bootloader with password
-
-You can set password for the bootloader for prevents users from entering single user mode, changing settings at boot time, access to the bootloader console, reset the root password, if there is no password for GRUB-menu or access to non-secure operating systems.
-
-###### Generate password hash
-
-```bash
-# Debian like distributions
-grub-mkpasswd-pbkdf2
-
-# RedHat like distributions
-grub2-mkpasswd-pbkdf2
-```
-
-###### Updated grub configuration
-
-```bash
-cat > /etc/grub.d/01_hash << __EOF__
-set superusers="user"
-password_pbkdf2 user
-grub.pbkdf2.sha512.<hash> # rest of your password hash
-__EOF__
-```
-
-And regenerate grub configuration:
-
-```bash
-# Debian like distributions
-grub-mkconfig > /boot/grub/grub.cfg
-
-# RedHat like distributions
-grub2-mkconfig > /boot/grub2/grub.cfg
-```
-
-#### :eight_pointed_black_star: Protect bootloader config files
-
-Set the owner and group of `/etc/grub.conf` to the root user:
-
-```bash
-chown root:root /etc/grub.conf
-```
-
-or
-
-```bash
-chown -R root:root /etc/grub.d
-```
-
-Set permission on the `/etc/grub.conf` or `/etc/grub.d` file to read and write for root only:
-
-```bash
-chmod og-rwx /etc/grub.conf
-```
-
-or
-
-```bash
-chmod -R og-rwx /etc/grub.d
-```
-
-#### :ballot_box_with_check: Summary checklist
-
-| <b>Item</b> | <b>True</b> | <b>False</b> |
-| :---        | :---:       | :---:        |
-| Set password for the bootloader | :black_square_button: | :black_square_button: |
-
-### Disk partitions
-
-#### :information_source: Introduction
-
-Critical file systems should be separated into different partitions in ways that make your system a better and more secure.
-
-#### :eight_pointed_black_star: Separate disk partitions
-
-Make sure the following filesystems are mounted on separate partitions:
-
-- `/boot`
-- `/tmp`
-- `/var`
-- `/var/log`
-
-Additionally, depending on the purpose of the server, you should consider separating the following partitions:
-
-- `/usr`
-- `/home`
-- `/var/www`
-
-You should also consider separating these partitions:
-
-- `/var/tmp`
-- `/var/log/audit`
-
-#### :eight_pointed_black_star: Mount options: nodev, nosuid and noexec
-
-For more security-focused situations is as follows:
-
-- `nodev` - specifies that the filesystem cannot contain special devices: This is a security precaution. You don't want a user world-accessible filesystem like this to have the potential for the creation of character devices or access to random device hardware
-- `nosuid` - specifies that the filesystem cannot contain set userid files. Preventing setuid binaries on a world-writable filesystem makes sense because there's a risk of root escalation or other awfulness there
-- `noexec` - this param might be useful for a partition that contains no binaries, like **/var**, or contains binaries you do not want to execute on your system (from partitions with `noexec`), or that cannot even be executed on your system
-
-#### :eight_pointed_black_star: Secure /boot directory
-
-The boot directory contains important files related to the Linux kernel, so you need to make sure that this directory is locked down to read-only permissions.
-
-Add **ro** option and `nodev`, `nosuid` and `noexec` to `/etc/fstab` for **/boot** entry:
-
-```bash
-LABEL=/boot  /boot  ext2  defaults,ro,nodev,nosuid,noexec  1 2
-```
-
-  > When updating the kernel you will have to move the flag to `rw`:
-  > ```bash
-  > mount -o remount,defaults,rw /boot
-  > ```
-
-#### :eight_pointed_black_star: Secure /tmp and /var/tmp
-
-On Linux systems, the **/tmp** and **/var/tmp** locations are world-writable.
-
-Several daemons/applications use the **/tmp** or **/var/tmp** directories to temporarily store data, log information, or to share information between their sub-components. However, due to the shared nature of these directories, several attacks are possible, including:
-
-- Leaks of confidential data via secrets in file names
-- Race-condition attacks (TOCTOU) on the integrity of processes and data
-- Denial-of-Service (DoS) attacks based on race conditions and pre-allocating file/directory names
-
-As a rule of thumb, malicious applications usually write to **/tmp** and then attempt to run whatever was written. A way to prevent this is to mount **/tmp** on a separate partition with the options `nodev`, `nosuid` and `noexec` enabled.
-
-This will deny binary execution from **/tmp**, disable any binary to be suid root, and disable any block devices from being created.
-
-**The first possible scenario is create symlink**
-
-```bash
-mv /var/tmp /var/tmp.old
-ln -s /tmp /var/tmp
-cp -prf /var/tmp.old/* /tmp && rm -fr /var/tmp.old
-```
-
-and set properly mount params:
-
-```bash
-UUID=<...>  /tmp  ext4  defaults,nodev,nosuid,noexec  1 2
-```
-
-**The second scenario is a bind mount**
-
-The storage location **/var/tmp** should be bind mounted to **/tmp**, as having multiple locations for temporary storage is not required:
-
-```bash
-/tmp  /var/tmp  none  rw,nodev,nosuid,noexec,bind  0 0
-```
-
-**The third scenario is setting up polyinstantiated directories**
-
-Create new directories:
-
-```bash
-mkdir --mode 000 /tmp-inst
-mkdir --mode 000 /var/tmp/tmp-inst
-```
-
-Edit `/etc/security/namespace.conf`:
-
-```bash
- /tmp      /tmp-inst/          level  root,adm
- /var/tmp  /var/tmp/tmp-inst/  level  root,adm
-```
-
-Set correct **SELinux** context:
-
-```bash
-setsebool polyinstantiation_enabled=1
-chcon --reference=/tmp /tmp-inst
-chcon --reference=/var/tmp/ /var/tmp/tmp-inst
-```
-
-And set `nodev`, `nosuid` and `noexec` mount options in `/etc/fstab`.
-
-  > Alternative for **polyinstantiated directories** is **PrivateTmp** feature available from **systemd**. For more information please see: [New Red Hat Enterprise Linux 7 Security Feature: PrivateTmp](https://access.redhat.com/blogs/766093/posts/1976243).
-
-#### :eight_pointed_black_star: Secure /dev/shm
-
-`/dev/shm` is a temporary file storage filesystem, i.e. **tmpfs**, that uses RAM for the backing store. One of the major security issue with the `/dev/shm` is anyone can upload and execute files inside the `/dev/shm` similar to the `/tmp` partition. Further the size should be limited to avoid an attacker filling up this mountpoint to the point where applications could be affected. (normally it allows 20% or more of RAM to be used). The sticky bit should be set like for any world writeable directory.
-
-For applies to shared memory `/dev/shm` mount params:
-
-```bash
-tmpfs  /dev/shm  tmpfs  rw,nodev,nosuid,noexec,size=1024M,mode=1777 0 0
-```
-
-  > You can also create a group named 'shm' and put application users for SHM-using applications in there. Then the access can be completely be restricted as such:
-
-```bash
-tmpfs  /dev/shm  tmpfs  rw,nodev,nosuid,noexec,size=1024M,mode=1770,uid=root,gid=shm 0 0
-```
-
-#### :eight_pointed_black_star: Secure /proc filesystem
-
-The proc pseudo-filesystem `/proc` should be mounted with `hidepid`. When setting `hidepid` to **2**, directories entries in `/proc` will hidden.
-
-```bash
-proc  /proc  proc  defaults,hidepid=2  0 0
-```
-
-  > Some of the services/programs operate incorrectly when the `hidepid` parameter is set, e.g. Nagios checks.
-
-#### :eight_pointed_black_star: Swap partition
-
-#### :eight_pointed_black_star: Disk quotas
-
-#### :ballot_box_with_check: Summary checklist
-
-| <b>Item</b> | <b>True</b> | <b>False</b> |
-| :---        | :---:       | :---:        |
-| Separate base partition scheme: `/boot`, `/tmp`, `/var`, `/var/log` | :black_square_button: | :black_square_button: |
-| Separate `/usr` partition | :black_square_button: | :black_square_button: |
-| Separate `/home` partition | :black_square_button: | :black_square_button: |
-| Separate `/var/www` partition | :black_square_button: | :black_square_button: |
-| Separate `/var/tmp` partition | :black_square_button: | :black_square_button: |
-| Separate `/var/audit` partition | :black_square_button: | :black_square_button: |
-| Secure `/boot` directory with `ro`, `nodev`, `nosuid`, `noexec` options | :black_square_button: | :black_square_button: |
-| Secure `/tmp` and `/var/tmp` directory with `nodev`, `nosuid`, `noexec` options | :black_square_button: | :black_square_button: |
-| Create symlink for `/var/tmp` in `/tmp` | :black_square_button: | :black_square_button: |
-| Setting up bind-mount `/var/tmp` to `/tmp` | :black_square_button: | :black_square_button: |
-| Setting up polyinstantiated directories for `/tmp` and `/var/tmp` | :black_square_button: | :black_square_button: |
-| Secure `/dev/shm` directory with `nodev`, `nosuid`, `noexec` options | :black_square_button: | :black_square_button: |
-| Secure `/proc` filesystem with `hidepid=2` option | :black_square_button: | :black_square_button: |
-
-## Services
-
-### Disable all unnecessary services
-
-The action in this section provide guidance on some of unwanted applications and services which you might not needed but they are installed by default during OS installation and unknowingly start eating your system resources and also threats to the system security. If unused services is not enabled then it cannot be exploited.
-
-#### :eight_pointed_black_star: Common Unix Print System
-
-The Common Unix Print System (CUPS) provides the ability to print to both local and network printers. If the system does not need to accept print jobs from other systems, it's recommended that CUPS be disabled to reduce the potential attack.
-
-Run the following command to verify cups is not enabled:
-
-```bash
-# systemctl is-enabled cups
-disabled
-```
-
-Run the following command to disable cups:
-
-```bash
-# systemctl disable cups
-```
-
-[Source](http://www.cups.org)
+<h4><p align="center">:beginner: To start please go to the <a href="https://github.com/trimstray/the-practical-linux-hardening-guide/wiki">Wiki</a>.</p></h4>
